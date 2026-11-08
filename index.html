@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="description" content="Mahjong Solitaire — match free tile pairs and clear the turtle. 3 layouts, hints, shuffles, 3D tiles. Free single-file HTML5 puzzle game.">
-<title>Mahjong Solitaire · Free Tile Matching Puzzle</title>
+<meta name="description" content="连连看塔 — 在层叠的瓦片塔中点选两张相同的自由牌即可消除。3 种布局，配提示与洗牌，立体牌面。免费单文件 HTML5 解谜游戏。">
+<title>连连看塔 · 免费牌面消除解谜</title>
 <script>
 // 平台 SDK 按域名条件加载（独立运行时完全不加载，游戏行为不变）
 (function () {
@@ -75,38 +75,38 @@
 <body>
 <div id="app">
   <div id="hud">
-    <div class="stat"><div class="lb">TIME</div><div class="vl" id="tTime">0:00</div></div>
-    <div class="stat"><div class="lb">SCORE</div><div class="vl" id="tScore">0</div></div>
-    <div class="stat"><div class="lb">TILES</div><div class="vl" id="tTiles">0</div></div>
+    <div class="stat"><div class="lb">时间</div><div class="vl" id="tTime">0:00</div></div>
+    <div class="stat"><div class="lb">分数</div><div class="vl" id="tScore">0</div></div>
+    <div class="stat"><div class="lb">剩牌</div><div class="vl" id="tTiles">0</div></div>
     <div class="sp"></div>
-    <button class="btn" id="bHint">Hint 2</button>
-    <button class="btn" id="bShuf">Shuffle 3</button>
-    <button class="btn" id="bSound">Sound On</button>
-    <button class="btn" id="bMenu">Menu</button>
+    <button class="btn" id="bHint">提示 2</button>
+    <button class="btn" id="bShuf">洗牌 3</button>
+    <button class="btn" id="bSound">音效:开</button>
+    <button class="btn" id="bMenu">菜单</button>
   </div>
   <div id="stage">
     <canvas id="cv"></canvas>
     <div class="ov" id="menuOv" style="display:flex">
       <div class="panel">
-        <h1>Mahjong Solitaire</h1>
-        <p>Tap two free tiles with the same face to remove them.<br>A tile is <b>free</b> when nothing rests on it and its left or right side is open. Flowers match any flower, seasons any season. Clear the board before time runs out!</p>
-        <button class="lay" id="lay-turtle"><span class="nm">Turtle &middot; 144 tiles</span><br><span class="ds" id="best-turtle">Classic layout &middot; Best: —</span></button>
-        <button class="lay" id="lay-pyramid"><span class="nm">Pyramid &middot; 64 tiles</span><br><span class="ds" id="best-pyramid">Quick climb &middot; Best: —</span></button>
-        <button class="lay" id="lay-square"><span class="nm">Square &middot; 72 tiles</span><br><span class="ds" id="best-square">Open field &middot; Best: —</span></button>
+        <h1>连连看塔</h1>
+        <p>点选两张<b>自由牌</b>（牌面相同）即可消除。<br>一张牌「自由」的条件：上面没有压着其它牌，且左右至少有一侧是空的。花牌可与任意花牌配对，季牌可与任意季牌配对。在时间耗尽前清空牌面！</p>
+        <button class="lay" id="lay-turtle"><span class="nm">龟形 &middot; 144 张</span><br><span class="ds" id="best-turtle">经典布局 · 最佳: —</span></button>
+        <button class="lay" id="lay-pyramid"><span class="nm">金字塔 &middot; 64 张</span><br><span class="ds" id="best-pyramid">快速爬升 · 最佳: —</span></button>
+        <button class="lay" id="lay-square"><span class="nm">方阵 &middot; 72 张</span><br><span class="ds" id="best-square">开阔场地 · 最佳: —</span></button>
       </div>
     </div>
     <div class="ov" id="endOv">
       <div class="panel">
-        <h2 id="eTitle">Board Cleared!</h2>
+        <h2 id="eTitle">牌面清空！</h2>
         <div id="final">0</div>
         <div class="rows" id="eRows"></div>
-        <button class="big" id="eAgain">Play Again</button>
-        <button class="big ghost" id="eMenu">Menu</button>
+        <button class="big" id="eAgain">再玩一局</button>
+        <button class="big ghost" id="eMenu">菜单</button>
       </div>
     </div>
     <div id="toast"></div>
   </div>
-  <div id="foot">Mahjong Solitaire — a free tile-matching puzzle game</div>
+  <div id="foot">连连看塔 — 免费牌面消除解谜</div>
 </div>
 <script>
 "use strict";
@@ -300,9 +300,9 @@ var cw = 320, ch = 240; // CSS 逻辑尺寸（resize 时更新）
 var M = { u: 16, uy: 20, lz: 6, td: 7, g: 2, r: 5, minX: 0, minY: 0, ox: 0, oy: 0 };
 var VK = 1.24; // 纵向半格比例（牌面竖长）
 var LAYOUT_META = {
-  turtle: { label: "Turtle", tiles: 144, base: "Classic layout" },
-  pyramid: { label: "Pyramid", tiles: 64, base: "Quick climb" },
-  square: { label: "Square", tiles: 72, base: "Open field" }
+  turtle: { label: "Turtle", tiles: 144, base: "经典布局" },
+  pyramid: { label: "Pyramid", tiles: 64, base: "快速爬升" },
+  square: { label: "Square", tiles: 72, base: "开阔场地" }
 };
 var LAYOUTS = ["turtle", "pyramid", "square"];
 var state = "MENU"; // MENU | PLAY | WIN | LOSE
@@ -571,8 +571,8 @@ function startGame(name) {
 function updateHUD(force) {
   document.getElementById("tScore").textContent = score;
   document.getElementById("tTiles").textContent = aliveCount();
-  document.getElementById("bHint").textContent = "Hint " + hints;
-  document.getElementById("bShuf").textContent = "Shuffle " + shuffles;
+  document.getElementById("bHint").textContent = "提示 " + hints;
+  document.getElementById("bShuf").textContent = "洗牌 " + shuffles;
   var sec = Math.max(0, Math.ceil(timeLeft));
   if (sec !== shownSec || force) {
     shownSec = sec;
@@ -608,9 +608,9 @@ function afterMove() {
     if (shuffles > 0) {
       shuffles--;
       doShuffle();
-      toast("No moves - auto shuffle! " + shuffles + " left");
+      toast("无可消除 - 自动洗牌！剩 " + shuffles + " 次");
     } else {
-      lose("No More Moves", "Every free pair is gone and the shuffle pile is empty.");
+      lose("无可消除", "能配对的自牌都已消完，洗牌次数也已用完。");
     }
   }
 }
@@ -638,12 +638,12 @@ function win() {
   var b = getBest(layoutName), newBest = false, newTime = false;
   if (total > b.score) { lsSet(bestKey(layoutName, "score"), String(total)); newBest = true; }
   if (!b.time || used < b.time) { lsSet(bestKey(layoutName, "time"), String(Math.round(used))); newTime = true; }
-  document.getElementById("eTitle").textContent = "Board Cleared!";
+  document.getElementById("eTitle").textContent = "牌面清空！";
   document.getElementById("final").textContent = total;
-  var rows = "Pairs: <b>" + (tiles.length / 2) + " x 100</b> &nbsp; Time bonus: <b>" + bonus + "</b>" +
-    "<br>Time: <b>" + fmtTime(used) + "</b>" +
-    "<br>Best score: <b>" + getBest(layoutName).score + "</b>" + (newBest ? " (new!)" : "") +
-    " &middot; Best time: <b>" + fmtTime(getBest(layoutName).time) + "</b>" + (newTime ? " (new!)" : "");
+  var rows = "对子: <b>" + (tiles.length / 2) + " × 100</b> &nbsp; 时间加成: <b>" + bonus + "</b>" +
+    "<br>用时: <b>" + fmtTime(used) + "</b>" +
+    "<br>最佳分数: <b>" + getBest(layoutName).score + "</b>" + (newBest ? "（新纪录！）" : "") +
+    " &middot; 最佳时间: <b>" + fmtTime(getBest(layoutName).time) + "</b>" + (newTime ? "（新纪录！）" : "");
   document.getElementById("eRows").innerHTML = rows;
   document.getElementById("endOv").style.display = "flex";
   sWin(); portalStop(); portalHappy();
@@ -652,7 +652,7 @@ function lose(title, line) {
   state = "LOSE";
   document.getElementById("eTitle").textContent = title;
   document.getElementById("final").textContent = score;
-  document.getElementById("eRows").innerHTML = line + "<br>Tiles left: <b>" + aliveCount() + "</b>";
+  document.getElementById("eRows").innerHTML = line + "<br>剩牌: <b>" + aliveCount() + "</b>";
   document.getElementById("endOv").style.display = "flex";
   sLose(); portalStop();
 }
@@ -667,7 +667,7 @@ function toMenu() {
 function refreshMenu() {
   for (var i = 0; i < LAYOUTS.length; i++) {
     var n = LAYOUTS[i], b = getBest(n);
-    var txt = LAYOUT_META[n].base + " &middot; Best: " + (b.score ? b.score + " pts" : "—") + (b.time ? " &middot; " + fmtTime(b.time) : "");
+    var txt = LAYOUT_META[n].base + " · 最佳: " + (b.score ? b.score + " 分" : "—") + (b.time ? " · " + fmtTime(b.time) : "");
     document.getElementById("best-" + n).innerHTML = txt;
   }
 }
@@ -750,7 +750,7 @@ function useShuffle() {
 function toggleSound() {
   muted = !muted;
   lsSet("ms_muted", muted ? "1" : "0");
-  document.getElementById("bSound").textContent = muted ? "Sound Off" : "Sound On";
+  document.getElementById("bSound").textContent = muted ? "音效:关" : "音效:开";
   if (!muted) sSel();
 }
 document.getElementById("bHint").addEventListener("click", useHint);
@@ -808,7 +808,7 @@ function frame(ts) {
   if (state !== "MENU" && tiles.length) {
     if (state === "PLAY") {
       timeLeft -= dt;
-      if (timeLeft <= 0) { timeLeft = 0; updateHUD(true); lose("Time's Up", "The clock ran out with tiles still standing."); }
+      if (timeLeft <= 0) { timeLeft = 0; updateHUD(true); lose("时间到", "时间耗尽，牌面上还有牌没消完。"); }
       else updateHUD(false);
     }
     var order = [];
@@ -849,7 +849,7 @@ function frame(ts) {
 }
 
 // ---- 启动 ----
-document.getElementById("bSound").textContent = muted ? "Sound Off" : "Sound On";
+document.getElementById("bSound").textContent = muted ? "音效:关" : "音效:开";
 sizeCanvas();
 refreshMenu();
 // 调试/测试钩子（不影响游戏逻辑）
